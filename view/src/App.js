@@ -30,6 +30,7 @@ const handleDelete = async (id) => {
 
 // send user action to controller
 const handleSubmit = async (e) => {
+
   e.preventDefault();
   setError();
   const data = new FormData(e.currentTarget);
@@ -37,12 +38,11 @@ const handleSubmit = async (e) => {
     data.set('description', todo.description);
     data.set('created_at', `${new Date().toISOString()}`);
     const newTodo = await createTodo(data);
-    console.log(await newTodo)
-    // if (newTodo.error) {
-    //   setError(newTodo.error);
-    // }
-    // setTodo({ description: '' });
-    // fetchTodos();
+    if (newTodo.error) {
+      setError(newTodo.error);
+    }
+    setTodo({ description: '' });
+    fetchTodos();
   } catch (err) {
     setError(err);
   }
@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
         <input
           type="text"
           value={todo.description}
-          onChange={(event) =>
+          onChange={(event) => 
             setTodo({ ...todo, description: event.target.value })
           }
         ></input>

@@ -1,11 +1,13 @@
 export const createTodo = async (todo) => {
     console.log(todo);
     try {
-        const res = await fetch('api/todos/create', {
-        method: 'POST',
-        body: todo,
+        console.log('trying to create todo')
+        const response = await fetch('api/todos/create', {
+            method: 'POST',
+            body: todo,
         });
-        return res.json();
+        const jsonResponse = await response.json();
+        return jsonResponse;
     } catch (error) {
         return { error };
     }
